@@ -1,0 +1,54 @@
+---
+# tasks file for prometheus-postgres
+
+- name: prometheus postgres | create directories
+  become: yes
+  file:
+    path: "{{ item }}"
+    recurse: yes
+    state: directory
+  with_items:
+  - /opt/prometheus/postgres
+  - /etc/prometheus
+
+- name: prometheus postgres | download
+  become: yes
+  get_url:
+    url: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.2.1/postgres_exporter
+    checksum: sha256:4bf310dd23e8291b5f652b51d3d3966454705a367c4a5105884c3f1581300439
+    dest: /opt/prometheus/postgres/postgres_exporter-0.2.1
+    force: no
+    mode: u=rwx,g=rx,o=rx
+
+- name: prometheus postgres | symlink
+  become: yes
+  file:
+    src: /opt/prometheus/postgres/postgres_exporter-0.2.1
+    path: /opt/prometheus/postgres/postgres_exporter
+    force: yes
+    state: link
+
+- name: prometheus postgres | configuration file
+  become: yes
+  copy:
+    dest: /etc/prometheus/postgres-queries.yml
+    force: yes
+    src: etc-prometheus-postgres-queries.yml
+  notify:
+  - restart prometheus-postgres
+
+- name: prometheus postgres | server systemd service
+  become: yes
+  template:
+    dest: /etc/systemd/system/prometheus-postgres-exporter.service
+    src: systemd-system-prometheus-postgres-exporter-service.j2
+  notify:
+  - restart prometheus-postgres
+
+- name: prometheus postgres | enable and start server systemd
+  become: yes
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: prometheus-postgres-exporter.service
+    state: started

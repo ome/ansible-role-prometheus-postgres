@@ -1,0 +1,11 @@
+galaxy_info:
+  author: ome-devel@lists.openmicroscopy.org.uk
+  description: Prometheus Postgres exporter
+  company: Open Microscopy Environment
+  license: BSD
+  min_ansible_version: 2.2
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  galaxy_tags: []

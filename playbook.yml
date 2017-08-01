@@ -1,0 +1,13 @@
+---
+- hosts: all
+  roles:
+
+    - role: openmicroscopy.postgresql
+      postgresql_users_databases:
+      - user: alice
+        password: alice123
+        databases: [alice]
+
+    - role: ansible-role-prometheus-postgres
+      prometheus_postgres_dbname: alice
+      prometheus_postgres_port: 19187
