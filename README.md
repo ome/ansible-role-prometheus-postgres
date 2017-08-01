@@ -17,6 +17,7 @@ All variables are optional:
 
 - `prometheus_postgres_dbname`: The database name
 - `prometheus_postgres_port`: Serve metrics on this port, default `9187`
+- `prometheus_postgres_query_filenames`: A list of additional query files from `files/`, default `[queries-default.yml]`
 
 
 Example playbook
