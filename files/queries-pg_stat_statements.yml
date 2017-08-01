@@ -12,10 +12,10 @@ pg_stat_statements:
       usage: "LABEL"
   - queryid:
       description: Internal hash code, computed from the statement's parse tree
-      usage: COUNTER
+      usage: LABEL
   - query:
       description: Text of a representative statement
-      usage: COUNTER
+      usage: LABEL
   - calls:
       description: Number of times executed
       usage: COUNTER
