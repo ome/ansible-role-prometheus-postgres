@@ -1,0 +1,6 @@
+---
+# defaults file for prometheus-postgres
+
+prometheus_postgres_dbname: postgres
+
+prometheus_postgres_port: 9187
