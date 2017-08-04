@@ -11,3 +11,6 @@
     - role: ansible-role-prometheus-postgres
       prometheus_postgres_dbname: alice
       prometheus_postgres_port: 19187
+      prometheus_postgres_query_filenames:
+      - queries-default.yml
+      - queries-pg_statio_user_tables.yml

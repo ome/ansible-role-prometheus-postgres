@@ -30,10 +30,11 @@
 
 - name: prometheus postgres | configuration file
   become: yes
-  copy:
+  assemble:
     dest: /etc/prometheus/postgres-queries.yml
-    force: yes
-    src: etc-prometheus-postgres-queries.yml
+    regexp: "^{{ prometheus_postgres_query_filenames | join('|') }}$"
+    remote_src: false
+    src: files/
   notify:
   - restart prometheus-postgres
 
