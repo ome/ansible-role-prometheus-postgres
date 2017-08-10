@@ -14,19 +14,21 @@
 - name: prometheus postgres | download
   become: yes
   get_url:
-    url: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.2.1/postgres_exporter
-    checksum: sha256:4bf310dd23e8291b5f652b51d3d3966454705a367c4a5105884c3f1581300439
-    dest: /opt/prometheus/postgres/postgres_exporter-0.2.1
+    url: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.2.2/postgres_exporter
+    checksum: sha256:1e2ead2dd89c1c7021a697da9426b20f3e03b956a06ddbc1f61a0d345ad8929a
+    dest: /opt/prometheus/postgres/postgres_exporter-0.2.2
     force: no
     mode: u=rwx,g=rx,o=rx
 
 - name: prometheus postgres | symlink
   become: yes
   file:
-    src: /opt/prometheus/postgres/postgres_exporter-0.2.1
+    src: /opt/prometheus/postgres/postgres_exporter-0.2.2
     path: /opt/prometheus/postgres/postgres_exporter
     force: yes
     state: link
+  notify:
+  - restart prometheus-postgres
 
 - name: prometheus postgres | configuration file
   become: yes
