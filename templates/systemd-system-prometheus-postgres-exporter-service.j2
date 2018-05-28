@@ -4,9 +4,9 @@ Description=Prometheus Postgres Exporter Server
 [Service]
 User=postgres
 Environment="DATA_SOURCE_NAME=user=postgres dbname={{ prometheus_postgres_dbname }} host=/var/run/postgresql/ sslmode=disable"
-ExecStart=/opt/prometheus/postgres/postgres_exporter \
-    -extend.query-path /etc/prometheus/postgres-queries.yml \
-    -web.listen-address :{{ prometheus_postgres_port }}
+ExecStart=/opt/prometheus/postgres_exporter/postgres_exporter \
+    --extend.query-path /etc/prometheus/postgres-queries.yml \
+    --web.listen-address :{{ prometheus_postgres_port }}
 
 [Install]
 WantedBy=multi-user.target

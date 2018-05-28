@@ -14,17 +14,26 @@
 - name: prometheus postgres | download
   become: yes
   get_url:
-    url: https://github.com/wrouesnel/postgres_exporter/releases/download/v0.2.2/postgres_exporter
-    checksum: sha256:1e2ead2dd89c1c7021a697da9426b20f3e03b956a06ddbc1f61a0d345ad8929a
-    dest: /opt/prometheus/postgres/postgres_exporter-0.2.2
-    force: no
-    mode: u=rwx,g=rx,o=rx
+    url: https://github.com/wrouesnel/postgres_exporter/releases/download/v{{ prometheus_postgres_version }}/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz
+      #https://github.com/wrouesnel/postgres_exporter/releases/download/v{{ prometheus_postgres_version }}/postgres_exporter
+    checksum: sha256:{{ prometheus_postgres_sha256 }}
+    dest: /opt/prometheus/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz
+    #dest: /opt/prometheus/postgres/postgres_exporter-0.2.2
 
-- name: prometheus postgres | symlink
+- name: prometheus postgres | install postgres-exporter
+  become: yes
+  unarchive:
+    src: /opt/prometheus/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz
+    dest: /opt/prometheus
+    group: root
+    owner: root
+    remote_src: yes
+
+- name: prometheus postgres | symlink postgres-exporter
   become: yes
   file:
-    src: /opt/prometheus/postgres/postgres_exporter-0.2.2
-    path: /opt/prometheus/postgres/postgres_exporter
+    src: /opt/prometheus/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64
+    path: /opt/prometheus/postgres_exporter
     force: yes
     state: link
   notify:
