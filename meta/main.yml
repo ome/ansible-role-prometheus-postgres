@@ -8,4 +8,5 @@ galaxy_info:
   - name: EL
     versions:
     - 7
+  role_name: prometheus_postgres
   galaxy_tags: []

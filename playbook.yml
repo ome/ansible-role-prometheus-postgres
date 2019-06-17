@@ -2,7 +2,7 @@
 - hosts: all
   roles:
 
-    - role: openmicroscopy.postgresql
+    - role: ome.postgresql
       postgresql_databases:
       - name: alice
       postgresql_users:

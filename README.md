@@ -1,6 +1,9 @@
 Prometheus Postgres
 ===================
 
+[![Build Status](https://travis-ci.org/ome/ansible-role-prometheus-postgres.svg)](https://travis-ci.org/ome/ansible-role-prometheus-postgres)
+[![Ansible Role](https://img.shields.io/ansible/role/41324.svg)](https://galaxy.ansible.com/ome/prometheus_postgres)
+
 Prometheus Postgres exporter.
 
 This currently uses the local `postgres` administrator account on the PostgreSQL server.
@@ -25,7 +28,7 @@ Example playbook
 
     - hosts: localhost
       roles:
-      - role: prometheus-postgres
+      - role: ome.prometheus_postgres
         prometheus_postgres_dbname: test
 
 
