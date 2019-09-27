@@ -21,6 +21,8 @@ All variables are optional:
 - `prometheus_postgres_dbname`: The database name
 - `prometheus_postgres_port`: Serve metrics on this port, default `9187`
 - `prometheus_postgres_query_filenames`: A list of additional query files from `files/`, default `[queries-default.yml]`
+- `prometheus_postgres_version`: the `postgres_exporter` version to be installed, default `0.4.6`
+- `prometheus_postgres_sha256`: the SHA256 checksum of the `postgres_exporter` bundle of version `prometheus_postgres_version, default: `9ed457c9a6d3a1e0132b3fe10f1d072457a667b009993a73e90b47ca99cc5bca`
 
 
 Example playbook

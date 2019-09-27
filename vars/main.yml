@@ -1,5 +1,0 @@
----
-# vars for prometheus-postgres
-
-prometheus_postgres_version: 0.4.6
-prometheus_postgres_sha256: 9ed457c9a6d3a1e0132b3fe10f1d072457a667b009993a73e90b47ca99cc5bca
