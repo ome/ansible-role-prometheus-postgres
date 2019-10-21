@@ -19,6 +19,7 @@ Role Variables
 All variables are optional:
 
 - `prometheus_postgres_dbname`: The database name
+- `prometheus_postgres_data_source_name`: implies `DATA_SOURCE_NAME` ENV variable in the [postgres_exporter](https://github.com/wrouesnel/postgres_exporter) 
 - `prometheus_postgres_port`: Serve metrics on this port, default `9187`
 - `prometheus_postgres_query_filenames`: A list of additional query files from `files/`, default `[queries-default.yml]`
 - `prometheus_postgres_version`: the `postgres_exporter` version to be installed, default `0.4.6`
