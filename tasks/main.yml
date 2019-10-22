@@ -51,7 +51,7 @@
     dest: /etc/prometheus/postgres-queries.yml
     regexp: "^{{ prometheus_postgres_query_filenames | join('|') }}$"
     remote_src: false
-    src: files/
+    src: "{{ prometheus_postgres_query_directory }}"
   notify:
     - restart prometheus-postgres
 
