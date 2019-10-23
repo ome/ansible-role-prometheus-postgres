@@ -14,4 +14,3 @@ def test_services_running_and_enabled(host):
 def test_node_exporter_metrics(host):
     out = host.check_output('curl http://localhost:19187/metrics')
     assert 'pg_database_size{datname="alice"}' in out
-
