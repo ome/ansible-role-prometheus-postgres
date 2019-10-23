@@ -1,18 +1,19 @@
 ---
-- hosts: all
+- name: Converge
+  hosts: all
   roles:
 
     - role: ome.postgresql
       postgresql_databases:
-      - name: alice
+        - name: alice
       postgresql_users:
-      - user: alice
-        password: alice123
-        databases: [alice]
+        - user: alice
+          password: alice123
+          databases: [alice]
 
     - role: ansible-role-prometheus-postgres
       prometheus_postgres_dbname: alice
       prometheus_postgres_port: 19187
       prometheus_postgres_query_filenames:
-      - queries-default.yml
-      - queries-pg_statio_user_tables.yml
+        - queries-default.yml
+        - queries-pg_statio_user_tables.yml
