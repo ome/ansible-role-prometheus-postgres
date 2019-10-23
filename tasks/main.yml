@@ -2,65 +2,71 @@
 # tasks file for prometheus-postgres
 
 - name: prometheus postgres | create directories
-  become: yes
+  become: true
   file:
     path: "{{ item }}"
-    recurse: yes
+    recurse: true
     state: directory
   with_items:
-  - /opt/prometheus/postgres
-  - /etc/prometheus
+    - /opt/prometheus/postgres
+    - /etc/prometheus
 
 - name: prometheus postgres | download
-  become: yes
+  become: true
   get_url:
-    url: https://github.com/wrouesnel/postgres_exporter/releases/download/v{{ prometheus_postgres_version }}/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz
-      #https://github.com/wrouesnel/postgres_exporter/releases/download/v{{ prometheus_postgres_version }}/postgres_exporter
+    url: "https://github.com/wrouesnel/postgres_exporter/releases/download/\
+      v{{ prometheus_postgres_version }}/\
+      postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz"
+    # "https://github.com/wrouesnel/postgres_exporter/releases/download/\
+    # v{{ prometheus_postgres_version }}/postgres_exporter"
     checksum: sha256:{{ prometheus_postgres_sha256 }}
-    dest: /opt/prometheus/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz
-    #dest: /opt/prometheus/postgres/postgres_exporter-0.2.2
+    dest: "/opt/prometheus/postgres_exporter\
+      _v{{ prometheus_postgres_version }}_linux-amd64.tar.gz"
+    # dest: /opt/prometheus/postgres/postgres_exporter-0.2.2
 
 - name: prometheus postgres | install postgres-exporter
-  become: yes
+  become: true
   unarchive:
-    src: /opt/prometheus/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz
+    src: "/opt/prometheus/postgres_exporter\
+      _v{{ prometheus_postgres_version }}_linux-amd64.tar.gz"
     dest: /opt/prometheus
     group: root
     owner: root
-    remote_src: yes
+    remote_src: true
 
 - name: prometheus postgres | symlink postgres-exporter
-  become: yes
+  become: true
   file:
-    src: /opt/prometheus/postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64
+    src: "/opt/prometheus/postgres_exporter\
+      _v{{ prometheus_postgres_version }}_linux-amd64"
     path: /opt/prometheus/postgres_exporter
-    force: yes
+    force: true
     state: link
   notify:
-  - restart prometheus-postgres
+    - restart prometheus-postgres
 
 - name: prometheus postgres | configuration file
-  become: yes
+  become: true
   assemble:
     dest: /etc/prometheus/postgres-queries.yml
     regexp: "^{{ prometheus_postgres_query_filenames | join('|') }}$"
     remote_src: false
     src: files/
   notify:
-  - restart prometheus-postgres
+    - restart prometheus-postgres
 
 - name: prometheus postgres | server systemd service
-  become: yes
+  become: true
   template:
     dest: /etc/systemd/system/prometheus-postgres-exporter.service
     src: systemd-system-prometheus-postgres-exporter-service.j2
   notify:
-  - restart prometheus-postgres
+    - restart prometheus-postgres
 
 - name: prometheus postgres | enable and start server systemd
-  become: yes
+  become: true
   systemd:
-    daemon_reload: yes
-    enabled: yes
+    daemon_reload: true
+    enabled: true
     name: prometheus-postgres-exporter.service
     state: started

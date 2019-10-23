@@ -1,3 +1,4 @@
+---
 # {{ ansible_managed }}
 
 ######################################################################
@@ -5,21 +6,30 @@
 # https://github.com/wrouesnel/postgres_exporter/blob/1afbd62ab194c045a88488d77de2f116400dedb7/queries.yaml
 
 pg_replication:
-  query: "SELECT EXTRACT(EPOCH FROM (now() - pg_last_xact_replay_timestamp()))::INT as lag"
+  query: >-
+    SELECT EXTRACT(EPOCH FROM (now() - pg_last_xact_replay_timestamp()))::INT
+    as lag
   metrics:
     - lag:
         usage: "GAUGE"
         description: "Replication lag behind master in seconds"
 
 pg_postmaster:
-  query: "SELECT pg_postmaster_start_time as start_time_seconds from pg_postmaster_start_time()"
+  query: >-
+    SELECT pg_postmaster_start_time as start_time_seconds from
+    pg_postmaster_start_time()
   metrics:
     - start_time_seconds:
         usage: "GAUGE"
         description: "Time at which postmaster started"
 
 pg_stat_user_tables:
-  query: "SELECT schemaname, relname, seq_scan, seq_tup_read, idx_scan, idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del, n_tup_hot_upd, n_live_tup, n_dead_tup, n_mod_since_analyze, last_vacuum, last_autovacuum, last_analyze, last_autoanalyze, vacuum_count, autovacuum_count, analyze_count, autoanalyze_count FROM pg_stat_user_tables"
+  query: >-
+    SELECT schemaname, relname, seq_scan, seq_tup_read, idx_scan,
+    idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del, n_tup_hot_upd, n_live_tup,
+    n_dead_tup, n_mod_since_analyze, last_vacuum, last_autovacuum,
+    last_analyze, last_autoanalyze, vacuum_count, autovacuum_count,
+    analyze_count, autoanalyze_count FROM pg_stat_user_tables
   metrics:
     - schemaname:
         usage: "LABEL"
@@ -50,7 +60,9 @@ pg_stat_user_tables:
         description: "Number of rows deleted"
     - n_tup_hot_upd:
         usage: "COUNTER"
-        description: "Number of rows HOT updated (i.e., with no separate index update required)"
+        description: >-
+          Number of rows HOT updated (i.e., with no separate index update
+          required)
     - n_live_tup:
         usage: "GAUGE"
         description: "Estimated number of live rows"
@@ -62,31 +74,41 @@ pg_stat_user_tables:
         description: "Estimated number of rows changed since last analyze"
     - last_vacuum:
         usage: "GAUGE"
-        description: "Last time at which this table was manually vacuumed (not counting VACUUM FULL)"
+        description: >-
+          Last time at which this table was manually vacuumed (not counting
+          VACUUM FULL)
     - last_autovacuum:
         usage: "GAUGE"
-        description: "Last time at which this table was vacuumed by the autovacuum daemon"
+        description: >-
+          Last time at which this table was vacuumed by the autovacuum daemon
     - last_analyze:
         usage: "GAUGE"
         description: "Last time at which this table was manually analyzed"
     - last_autoanalyze:
         usage: "GAUGE"
-        description: "Last time at which this table was analyzed by the autovacuum daemon"
+        description: >-
+          Last time at which this table was analyzed by the autovacuum daemon
     - vacuum_count:
         usage: "COUNTER"
-        description: "Number of times this table has been manually vacuumed (not counting VACUUM FULL)"
+        description: >-
+          Number of times this table has been manually vacuumed (not counting
+          VACUUM FULL)
     - autovacuum_count:
         usage: "COUNTER"
-        description: "Number of times this table has been vacuumed by the autovacuum daemon"
+        description: >-
+          Number of times this table has been vacuumed by the autovacuum daemon
     - analyze_count:
         usage: "COUNTER"
         description: "Number of times this table has been manually analyzed"
     - autoanalyze_count:
         usage: "COUNTER"
-        description: "Number of times this table has been analyzed by the autovacuum daemon"
+        description: >-
+          Number of times this table has been analyzed by the autovacuum daemon
 
 pg_database:
-  query: " SELECT pg_database.datname, pg_database_size(pg_database.datname) as size FROM pg_database"
+  query: >-
+    SELECT pg_database.datname, pg_database_size(pg_database.datname) as size
+    FROM pg_database
   metrics:
     - datname:
         usage: "LABEL"
