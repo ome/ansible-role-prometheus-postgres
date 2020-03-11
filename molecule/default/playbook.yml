@@ -10,6 +10,7 @@
         - user: alice
           password: alice123
           databases: [alice]
+      postgresql_version: "10"
 
     - role: ansible-role-prometheus-postgres
       prometheus_postgres_dbname: alice
