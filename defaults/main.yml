@@ -1,9 +1,9 @@
 ---
 # defaults file for prometheus-postgres
 
-prometheus_postgres_version: 0.4.6
+prometheus_postgres_version: 0.8.0
 prometheus_postgres_sha256: >-
-  9ed457c9a6d3a1e0132b3fe10f1d072457a667b009993a73e90b47ca99cc5bca
+  272ed14d3c360579d6e231db34a568ec08f61d2e163cf111e713929ffb6db3f5
 
 prometheus_postgres_dbname: postgres
 prometheus_postgres_data_source_name: "user=postgres dbname=\
@@ -15,3 +15,4 @@ prometheus_postgres_query_filenames:
   - queries-default.yml
 
 prometheus_postgres_query_directory: files/
+
