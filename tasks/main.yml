@@ -1,7 +1,7 @@
 ---
 # tasks file for prometheus-postgres
 
-- name: Ensure {{prometheus_postgres_system_user}} exists
+- name: Ensure {{prometheus_postgres_system_user}} user exists
   user:
     name: "{{prometheus_postgres_system_user}}"
     comment: "prometheus_postgres_system_user"
