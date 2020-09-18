@@ -5,6 +5,9 @@
   user:
     name: "{{prometheus_postgres_system_user}}"
     comment: "prometheus_postgres_system_user"
+    system: yes
+    shell: /bin/false
+    create_home: no
 
 - name: prometheus postgres | create directories
   become: true
