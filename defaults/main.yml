@@ -15,3 +15,5 @@ prometheus_postgres_query_filenames:
   - queries-default.yml
 
 prometheus_postgres_query_directory: files/
+
+prometheus_postgres_system_user: postgres
