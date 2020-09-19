@@ -5,7 +5,7 @@
   user:
     name: "{{prometheus_postgres_system_user}}"
     comment: "prometheus_postgres_system_user"
-    system: yes
+    system: true
     shell: /bin/false
     create_home: false
   when: "prometheus_postgres_system_user != 'postgres'"
