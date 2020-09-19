@@ -7,7 +7,7 @@
     comment: "prometheus_postgres_system_user"
     system: yes
     shell: /bin/false
-    create_home: no
+    create_home: false
   when: "prometheus_postgres_system_user != 'postgres'"
 
 - name: prometheus postgres | create directories
