@@ -1,6 +1,15 @@
 ---
 # tasks file for prometheus-postgres
 
+- name: Ensure {{prometheus_postgres_system_user}} users exists
+  user:
+    name: "{{prometheus_postgres_system_user}}"
+    comment: "prometheus_postgres_system_user"
+    system: true
+    shell: /bin/false
+    create_home: false
+  when: "prometheus_postgres_system_user != 'postgres'"
+
 - name: prometheus postgres | create directories
   become: true
   file:
