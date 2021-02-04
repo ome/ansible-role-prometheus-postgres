@@ -1,9 +1,9 @@
 ---
 # tasks file for prometheus-postgres
 
-- name: Ensure {{prometheus_postgres_system_user}} users exists
+- name: Ensure {{ prometheus_postgres_system_user }} users exists
   user:
-    name: "{{prometheus_postgres_system_user}}"
+    name: "{{ prometheus_postgres_system_user }}"
     comment: "prometheus_postgres_system_user"
     system: true
     shell: /bin/false
@@ -14,8 +14,8 @@
   become: true
   file:
     path: "{{ item }}"
-    recurse: true
     state: directory
+    mode: 0755
   with_items:
     - /opt/prometheus/postgres
     - /etc/prometheus
@@ -61,6 +61,7 @@
     regexp: "^{{ prometheus_postgres_query_filenames | join('|') }}$"
     remote_src: false
     src: "{{ prometheus_postgres_query_directory }}"
+    mode: 0644
   notify:
     - restart prometheus-postgres
 
@@ -69,6 +70,7 @@
   template:
     dest: /etc/systemd/system/prometheus-postgres-exporter.service
     src: systemd-system-prometheus-postgres-exporter-service.j2
+    mode: 0644
   notify:
     - restart prometheus-postgres
 
