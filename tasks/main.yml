@@ -23,21 +23,21 @@
 - name: prometheus postgres | download
   become: true
   get_url:
-    url: "https://github.com/wrouesnel/postgres_exporter/releases/download/\
+    # note the v0.9.0 in tag but 0.9.0 in the filename
+    # https://github.com/prometheus-community/postgres_exporter/releases/download/v0.9.0/postgres_exporter-0.9.0.linux-amd64.tar.gz
+    url: "https://github.com/prometheus-community/postgres_exporter/releases/download/\
       v{{ prometheus_postgres_version }}/\
-      postgres_exporter_v{{ prometheus_postgres_version }}_linux-amd64.tar.gz"
-    # "https://github.com/wrouesnel/postgres_exporter/releases/download/\
-    # v{{ prometheus_postgres_version }}/postgres_exporter"
+      postgres_exporter-{{ prometheus_postgres_version }}.linux-amd64.tar.gz"
     checksum: sha256:{{ prometheus_postgres_sha256 }}
     dest: "/opt/prometheus/postgres_exporter\
-      _v{{ prometheus_postgres_version }}_linux-amd64.tar.gz"
+      -{{ prometheus_postgres_version }}.linux-amd64.tar.gz"
     # dest: /opt/prometheus/postgres/postgres_exporter-0.2.2
 
 - name: prometheus postgres | install postgres-exporter
   become: true
   unarchive:
     src: "/opt/prometheus/postgres_exporter\
-      _v{{ prometheus_postgres_version }}_linux-amd64.tar.gz"
+      -{{ prometheus_postgres_version }}.linux-amd64.tar.gz"
     dest: /opt/prometheus
     group: root
     owner: root
@@ -47,7 +47,7 @@
   become: true
   file:
     src: "/opt/prometheus/postgres_exporter\
-      _v{{ prometheus_postgres_version }}_linux-amd64"
+      -{{ prometheus_postgres_version }}.linux-amd64"
     path: /opt/prometheus/postgres_exporter
     force: true
     state: link

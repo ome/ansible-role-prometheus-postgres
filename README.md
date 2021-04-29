@@ -9,7 +9,7 @@ Prometheus Postgres exporter.
 This currently uses the local `postgres` administrator account on the PostgreSQL server.
 In future this should be changed to use an unprivileged account.
 
-See https://github.com/wrouesnel/postgres_exporter
+See https://github.com/prometheus-community/postgres_exporter
 
 
 
