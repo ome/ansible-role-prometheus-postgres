@@ -24,8 +24,8 @@
   become: true
   get_url:
     # note the v0.9.0 in tag but 0.9.0 in the filename
-    url: "https://github.com/prometheus-community/postgres_exporter/releases/download/\
-      v{{ prometheus_postgres_version }}/\
+    url: "https://github.com/prometheus-community/postgres_exporter/\
+      releases/download/v{{ prometheus_postgres_version }}/\
       postgres_exporter-{{ prometheus_postgres_version }}.linux-amd64.tar.gz"
     checksum: sha256:{{ prometheus_postgres_sha256 }}
     dest: "/opt/prometheus/postgres_exporter\
