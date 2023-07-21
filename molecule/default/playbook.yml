@@ -12,7 +12,7 @@
           databases: [alice]
       postgresql_version: "11"
 
-    - role: ansible-role-prometheus-postgres
+    - role: ome.prometheus_postgres
       prometheus_postgres_dbname: alice
       prometheus_postgres_port: 19187
       prometheus_postgres_query_filenames:

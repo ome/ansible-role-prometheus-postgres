@@ -22,17 +22,24 @@ jobs:
     name: Test
     needs:
       - list-scenarios
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       # Keep running so we can see if other tests pass
       fail-fast: false
       matrix:
         scenario: ${{fromJson(needs.list-scenarios.outputs.matrix)}}
     steps:
-      - uses: actions/checkout@v2
-      - uses: ome/action-ome-ansible-molecule@main
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          scenario: ${{ matrix.scenario }}
+          python-version: '3.8'
+      - name: Install Ansible & Molecule
+        run: |
+            pip install "ansible<8" "ansible-lint<6.13" flake8
+            pip install "molecule<5" "ansible-compat<4"
+            pip install molecule-plugins[docker] pytest-testinfra
+      - name: Run molecule
+        run: molecule test -s "${{ matrix.scenario }}"
 
   publish:
     name: Galaxy
