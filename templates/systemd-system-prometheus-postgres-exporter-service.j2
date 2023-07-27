@@ -6,6 +6,9 @@ User={{ prometheus_postgres_system_user }}
 Environment="DATA_SOURCE_NAME={{ prometheus_postgres_data_source_name }}"
 ExecStart=/opt/prometheus/postgres_exporter/postgres_exporter \
     --extend.query-path /etc/prometheus/postgres-queries.yml \
+    {% if prometheus_postgres_tls_server_config %}
+    --web.config.file={{ prometheus_postgres_web_config }} \
+    {% endif %}
     --web.listen-address :{{ prometheus_postgres_port }}
 
 [Install]
