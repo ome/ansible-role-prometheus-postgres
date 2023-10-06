@@ -9,6 +9,9 @@ ExecStart=/opt/prometheus/postgres_exporter/postgres_exporter \
     {% if prometheus_postgres_tls_server_config %}
     --web.config.file={{ prometheus_postgres_web_config }} \
     {% endif %}
+    {% for collector in prometheus_postgres_enabled_collectors %}
+    '--collector.{{ collector }}' \
+    {% endfor %}
     --web.listen-address :{{ prometheus_postgres_port }}
 
 [Install]
