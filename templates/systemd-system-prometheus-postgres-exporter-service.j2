@@ -6,6 +6,9 @@ User={{ prometheus_postgres_system_user }}
 Environment="DATA_SOURCE_NAME={{ prometheus_postgres_data_source_name }}"
 ExecStart=/opt/prometheus/postgres_exporter/postgres_exporter \
     --extend.query-path /etc/prometheus/postgres-queries.yml \
+    {% for collector in prometheus_postgres_enabled_collectors %}
+    '--collector.{{ collector }}' \
+    {% endfor %}
     --web.listen-address :{{ prometheus_postgres_port }}
 
 [Install]
