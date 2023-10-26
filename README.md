@@ -2,7 +2,7 @@ Prometheus Postgres
 ===================
 
 [![Actions Status](https://github.com/ome/ansible-role-prometheus-postgres/workflows/Molecule/badge.svg)](https://github.com/ome/ansible-role-prometheus-postgres/actions)
-[![Ansible Role](https://img.shields.io/ansible/role/41331.svg)](https://galaxy.ansible.com/ome/prometheus_postgres)
+[![Ansible Role](https://img.shields.io/badge/ansible--galaxy-prometheus_postgres-blue.svg)](https://galaxy.ansible.com/ui/standalone/roles/ome/prometheus_postgres/)
 
 Prometheus Postgres exporter.
 
