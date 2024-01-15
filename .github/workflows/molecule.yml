@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: '3.9'
       - name: Install Ansible & Molecule
         run: |
             pip install "ansible<8" "ansible-lint<6.13" flake8
@@ -52,7 +52,8 @@ jobs:
       - name: Read the role name
         id: role-name
         run: |
-          name=$(grep 'role_name' meta/main.yml | sed -r 's/^[^:]*:(.*)$/\1/' | tr -d '[:space:]')  # noqa
+          name=$(grep 'role_name' meta/main.yml)
+          name=$name | sed -r 's/^[^:]*:(.*)$/\1/' | tr -d '[:space:]'
           echo "rolename=$name" >> "$GITHUB_OUTPUT"
       - name: Publish to Galaxy
         uses: ome/action-ansible-galaxy-publish@main
