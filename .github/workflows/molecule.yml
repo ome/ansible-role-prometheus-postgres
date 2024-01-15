@@ -22,7 +22,7 @@ jobs:
     name: Test
     needs:
       - list-scenarios
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       # Keep running so we can see if other tests pass
       fail-fast: false
@@ -46,7 +46,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags')
     needs:
       - test
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: galaxy
         uses: robertdebock/galaxy-action@1.2.1
