@@ -10,7 +10,7 @@
         - user: alice
           password: alice123
           databases: [alice]
-      postgresql_version: "11"
+      postgresql_version: "14"
 
     - role: ome.prometheus_postgres
       prometheus_postgres_dbname: alice
