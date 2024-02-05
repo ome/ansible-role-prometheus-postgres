@@ -15,6 +15,7 @@ prometheus_postgres_query_filenames:
 prometheus_postgres_query_directory: files/
 
 prometheus_postgres_system_user: postgres
+prometheus_postgres_system_group: postgres
 
 prometheus_postgres_web_config: '/etc/prometheus/web-config.yml'
 

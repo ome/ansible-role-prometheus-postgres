@@ -3,6 +3,7 @@ Description=Prometheus Postgres Exporter Server
 
 [Service]
 User={{ prometheus_postgres_system_user }}
+Group={{ prometheus_postgres_system_group }}
 Environment="DATA_SOURCE_NAME={{ prometheus_postgres_data_source_name }}"
 ExecStart=/opt/prometheus/postgres_exporter/postgres_exporter \
     --extend.query-path /etc/prometheus/postgres-queries.yml \

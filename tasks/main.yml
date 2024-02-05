@@ -10,6 +10,13 @@
     create_home: false
   when: "prometheus_postgres_system_user != 'postgres'"
 
+- name: Ensure {{ prometheus_postgres_system_group }} system group exists
+  ansible.builtin.group:
+    name: "{{ prometheus_postgres_system_group }}"
+    system: true
+    state: present
+  become: true
+
 - name: prometheus postgres | create directories
   become: true
   file:
