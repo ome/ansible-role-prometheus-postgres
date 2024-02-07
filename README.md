@@ -26,6 +26,13 @@ All variables are optional:
 - `prometheus_postgres_version`: the `postgres_exporter` version to be installed, default `0.4.6`
 - `prometheus_postgres_sha256`: the SHA256 checksum of the `postgres_exporter` bundle of version `prometheus_postgres_version`, default: `9ed457c9a6d3a1e0132b3fe10f1d072457a667b009993a73e90b47ca99cc5bca`
 - `prometheus_postgres_system_user`: The OS user used to run `postgres_exporter`, default: `postgres` (OS user is created only when differs from defaults).
+- `prometheus_postgres_tls_server_config`: The TLS server web config. [Documented here](https://github.com/prometheus/exporter-toolkit/tree/v0.1.0/https).
+    Example:
+    ```yaml
+    node_exporter_tls_server_config:
+      cert_file: /etc/node_exporter/tls.cert
+      key_file: /etc/node_exporter/tls.key
+    ```
 
 
 Example playbook

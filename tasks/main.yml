@@ -81,6 +81,15 @@
   notify:
     - restart prometheus-postgres
 
+- name: prometheus postgres | server web config
+  become: true
+  template:
+    dest: "{{ prometheus_postgres_web_config }}"
+    src: web-config.yml.j2
+    mode: 0644
+  notify:
+    - restart prometheus-postgres
+
 - name: prometheus postgres | server systemd service
   become: true
   template:
