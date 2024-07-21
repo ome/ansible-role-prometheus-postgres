@@ -7,7 +7,7 @@ prometheus_postgres_dbname: postgres
 prometheus_postgres_data_source_name: "user=postgres dbname=\
   {{ prometheus_postgres_dbname }} host=/var/run/postgresql/ sslmode=disable"
 
-prometheus_postgres_addr: 127.0.0.1
+prometheus_postgres_addr: 0.0.0.0
 prometheus_postgres_port: 9187
 
 prometheus_postgres_query_filenames:

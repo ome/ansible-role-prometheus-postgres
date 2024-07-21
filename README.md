@@ -16,7 +16,7 @@ All variables are optional:
 
 - `prometheus_postgres_dbname`: The database name
 - `prometheus_postgres_data_source_name`: implies `DATA_SOURCE_NAME` ENV variable in the [postgres_exporter](https://github.com/wrouesnel/postgres_exporter)
-- `prometheus_postgres_addr`: Serve metrics on this address, default `127.0.0.1`
+- `prometheus_postgres_addr`: Serve metrics on this address, default `0.0.0.0`
 - `prometheus_postgres_port`: Serve metrics on this port, default `9187`
 - `prometheus_postgres_query_directory`: the directory containing query files which will be loaded by the exporter, default is `files/`
 - `prometheus_postgres_query_filenames`: A list of additional query files from `prometheus_postgres_query_directory`, default `[queries-default.yml]`
