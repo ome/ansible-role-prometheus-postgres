@@ -49,16 +49,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: galaxy
-        uses: actions/checkout@v4
-      - name: Read the role name
-        id: role-name
-        run: |
-          name=$(grep 'role_name' meta/main.yml)
-          name=$(echo $name | sed -r 's/^[^:]*:(.*)$/\1/' | tr -d '[:space:]')
-          echo "rolename=$name" >> "$GITHUB_OUTPUT"
-      - name: Publish to Galaxy
-        uses: ome/action-ansible-galaxy-publish@main
+        uses: ansible-actions/ansible-galaxy-action@v1.2.0
         with:
-          galaxy-api-key: ${{ secrets.GALAXY_API_KEY }}
-          galaxy-version: ${{ github.ref_name }}
-          role-name: ${{ steps.role-name.outputs.rolename }}
+          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
+          galaxy_version: ${{  github.ref_name }}
