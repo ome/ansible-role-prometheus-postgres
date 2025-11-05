@@ -2,7 +2,7 @@
 # tasks file for prometheus-postgres
 
 - name: Ensure {{ prometheus_postgres_system_user }} users exists
-  user:
+  ansible.builtin.user:
     name: "{{ prometheus_postgres_system_user }}"
     comment: "prometheus_postgres_system_user"
     system: true
@@ -12,7 +12,7 @@
 
 - name: prometheus postgres | create directories
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     mode: 0755
@@ -21,7 +21,7 @@
     - /etc/prometheus
 
 - name: prometheus postgres | get checksums
-  set_fact:
+  ansible.builtin.set_fact:
     checksum_list: "{{ lookup('url', \
       'https://github.com/prometheus-community/postgres_exporter/\
       releases/download/v' + prometheus_postgres_version + '/\
@@ -30,7 +30,7 @@
   run_once: true
 
 - name: prometheus postgres | get checksum for {{ go_arch }}
-  set_fact:
+  ansible.builtin.set_fact:
     exporter_checksum: "{{ item.split(' ')[0] }}"
   with_items: "{{ checksum_list }}"
   delegate_to: localhost
@@ -39,7 +39,7 @@
 
 - name: prometheus postgres | download
   become: true
-  get_url:
+  ansible.builtin.get_url:
     # note the v0.9.0 in tag but 0.9.0 in the filename
     url: "https://github.com/prometheus-community/postgres_exporter/\
       releases/download/v{{ prometheus_postgres_version }}/\
@@ -51,7 +51,7 @@
 
 - name: prometheus postgres | install postgres-exporter
   become: true
-  unarchive:
+  ansible.builtin.unarchive:
     src: "/opt/prometheus/postgres_exporter\
       -{{ prometheus_postgres_version }}.linux-{{ go_arch }}.tar.gz"
     dest: /opt/prometheus
@@ -61,7 +61,7 @@
 
 - name: prometheus postgres | symlink postgres-exporter
   become: true
-  file:
+  ansible.builtin.file:
     src: "/opt/prometheus/postgres_exporter\
       -{{ prometheus_postgres_version }}.linux-{{ go_arch }}"
     path: /opt/prometheus/postgres_exporter
@@ -72,7 +72,7 @@
 
 - name: prometheus postgres | configuration file
   become: true
-  assemble:
+  ansible.builtin.assemble:
     dest: /etc/prometheus/postgres-queries.yml
     regexp: "^{{ prometheus_postgres_query_filenames | join('|') }}$"
     remote_src: false
@@ -83,7 +83,7 @@
 
 - name: prometheus postgres | server systemd service
   become: true
-  template:
+  ansible.builtin.template:
     dest: /etc/systemd/system/prometheus-postgres-exporter.service
     src: systemd-system-prometheus-postgres-exporter-service.j2
     mode: 0644
@@ -92,7 +92,7 @@
 
 - name: prometheus postgres | enable and start server systemd
   become: true
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
     enabled: true
     name: prometheus-postgres-exporter.service

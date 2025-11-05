@@ -10,7 +10,7 @@ on:
 jobs:
 
   list-scenarios:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.listscenarios.outputs.scenarios }}
     steps:
@@ -22,7 +22,7 @@ jobs:
     name: Test
     needs:
       - list-scenarios
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       # Keep running so we can see if other tests pass
       fail-fast: false
@@ -30,13 +30,13 @@ jobs:
         scenario: ${{fromJson(needs.list-scenarios.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.12'
       - name: Install Ansible & Molecule
         run: |
-            pip install "ansible<8" "ansible-lint<6.13" flake8
-            pip install "molecule<5" "ansible-compat<4"
+            pip install "requests" "ansible" "ansible-lint" "flake8"
+            pip install "molecule" "ansible-compat"
             pip install molecule-plugins[docker] pytest-testinfra
       - name: Run molecule
         run: molecule test -s "${{ matrix.scenario }}"
@@ -46,7 +46,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags')
     needs:
       - test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Read the role name
